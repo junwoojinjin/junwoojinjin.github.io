@@ -211,6 +211,7 @@
             console.log(selected_names);
             lineChart.update(selected_data(), selected_names);
             stackbar.update(selected_data(), selected_names, is_match_up);
+            updateDataTable();
         }
 
         function nameBtnFunction() {
@@ -327,6 +328,7 @@
         function selected_data(){
             if(!is_match_up){
                 return atp_data.filter(d => selected_court.indexOf(d['surface']) !== -1 && selected_level.indexOf(d['tourney_level']) !== -1)
+                        .filter(d => selected_names.indexOf(d['winner_name']) !== -1 || selected_names.indexOf(d['loser_name']) !== -1)
             }
             else{
                 return atp_data.filter(d => selected_court.indexOf(d['surface']) !== -1 && selected_level.indexOf(d['tourney_level']) !== -1)
@@ -335,7 +337,8 @@
         }
 
         function updateDataTable() {
-            sel_dat = selected_data()
+            sel_dat = selected_data();
+            
             dataTable.update(sel_dat, ['tourney_name','surface','tourney_date','winner_name','loser_name'])
         }
 
